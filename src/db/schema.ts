@@ -1,14 +1,14 @@
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, pgTable, text } from "drizzle-orm/pg-core";
 
-export const usersTable = sqliteTable("users_table", {
-  id: int().primaryKey({ autoIncrement: true }),
+export const usersTable = pgTable("users_table", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: text().notNull(),
-  age: int().notNull(),
+  age: integer().notNull(),
   email: text().notNull().unique(),
 });
 
-export const businessTable = sqliteTable("business_table", {
-  id: int().primaryKey({autoIncrement: true}),
+export const businessTable = pgTable("business_table", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: text().notNull(),
   description: text(),
   address: text().notNull()
