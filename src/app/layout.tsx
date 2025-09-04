@@ -3,6 +3,7 @@ import "./globals.css";
 import { NavBar } from "@/_components/NavBar";
 import { Footer } from "@/_components/Footer";
 
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Create Next App",

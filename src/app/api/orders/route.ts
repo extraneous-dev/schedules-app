@@ -1,8 +1,10 @@
 import { ordersTable } from "@/db/schema";
-import { db } from "../../../..";
+
 import { NextResponse } from "next/server";
+import { getDb } from "../../../..";
 
 export const GET = async () => {
+    const db = getDb();
   const data = await db.select().from(ordersTable);
   return NextResponse.json(data);
 };

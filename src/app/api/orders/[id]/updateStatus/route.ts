@@ -1,6 +1,5 @@
 import { ordersTable } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../..";
 
 export const GET = async (
   req: NextRequest,

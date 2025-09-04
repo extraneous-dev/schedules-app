@@ -1,12 +1,13 @@
 import { businessTable, menuTable, usersTable } from "@/db/schema";
-import { db } from "../../../..";
 import { eq } from "drizzle-orm";
+import { getDb } from "../../../..";
 export default async function ViewBusiness({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+    const db = getDb();
   const store = await db
     .select()
     .from(businessTable)

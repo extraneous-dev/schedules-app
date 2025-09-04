@@ -1,7 +1,8 @@
 import { businessTable, usersTable } from "@/db/schema";
-import { db } from "../../..";
+import { getDb } from "../../..";
 
 export default async function Explore() {
+    const db = getDb();
   const data = await db.select().from(businessTable);
   return (
     <div className="p-4 space-y-4">

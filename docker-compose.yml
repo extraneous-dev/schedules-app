@@ -1,39 +1,49 @@
+version: "3.9"
+
 services:
-  # web:
-  #   build: .
-  #   ports:
-  #     - 8000:5000
   postgres:
-    image: postgres:17
-    restart: always
+    image: postgres:17-alpine
+    container_name: keycloak_postgres
+    restart: unless-stopped
     networks:
-    - keycloak_network
+      - keycloak_network
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: keycloakpassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      
 
   keycloak:
-    image: keycloak:latest
+    image: quay.io/keycloak/keycloak:26.0.5
+    container_name: keycloak
     depends_on:
-    - postgres
+      - postgres
+    restart: unless-stopped
     networks:
       - keycloak_network
     command:
-    - start
+      - start
+      - --optimized
     ports:
       - 8080:8080
-      - 9000:9000
+      - 8443:8443
     environment:
+      # DB
       KC_DB: postgres
       KC_DB_URL_HOST: postgres
       KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloakpassword
 
+      # Recommended health and proxy settings
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      KC_PROXY: edge
+
+      # Admin user
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: adminpassword
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
       interval: 30s
@@ -42,6 +52,7 @@ services:
 
 volumes:
   postgres_data:
+
 networks:
   keycloak_network:
     driver: bridge
