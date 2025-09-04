@@ -1,13 +1,17 @@
 import { businessTable, menuTable, usersTable } from "@/db/schema";
 import { db } from "../../../..";
 import { eq } from "drizzle-orm";
-export default async function ViewBusiness({ params }) {
+export default async function ViewBusiness({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const store = await db.select().from(businessTable).where(id);
   const items = await db
     .select()
     .from(menuTable)
-    .where(eq(menuTable.businessId, id));
+    .where(eq(menuTable.businessId, Number(id)));
   return (
     <div className="p-4 space-y-4">
       <div className="-ml-4 -mt-4 w-screen bg-gradient-to-br from-gray-400 to-blue-400 h-72"></div>
