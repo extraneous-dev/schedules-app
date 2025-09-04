@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { boolean, integer, pgTable, text } from "drizzle-orm/pg-core";
+import { boolean, date, integer, pgTable, text } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users_table", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -31,3 +31,10 @@ export const menuRelations = relations(menuTable, ({ one }) => ({
     references: [businessTable.id],
   }),
 }));
+
+export const ordersTable = pgTable("orders_table", {
+  createdAt: date().defaultNow(),
+  orderedBy: integer().notNull(),
+  deliveredAt: date(),
+  total: integer().notNull(),
+});

@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+  db:
+    image: postgres:17
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  login:
+    image: keycloak:latest
+    ports:
+      - 8443:8443
+      - 9000:9000
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=keycloak
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=demo
+
+volumes:
+  postgres_data:
