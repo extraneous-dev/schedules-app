@@ -1,22 +1,47 @@
 services:
-  web:
-    build: .
-    ports:
-      - "8000:5000"
-  db:
+  # web:
+  #   build: .
+  #   ports:
+  #     - 8000:5000
+  postgres:
     image: postgres:17
     restart: always
+    networks:
+    - keycloak_network
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloakpassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      
 
-  login:
+  keycloak:
     image: keycloak:latest
+    depends_on:
+    - postgres
+    networks:
+      - keycloak_network
+    command:
+    - start
     ports:
-      - 8443:8443
+      - 8080:8080
       - 9000:9000
     environment:
-      - KC_BOOTSTRAP_ADMIN_USERNAME=keycloak
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=demo
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloakpassword
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   postgres_data:
+networks:
+  keycloak_network:
+    driver: bridge

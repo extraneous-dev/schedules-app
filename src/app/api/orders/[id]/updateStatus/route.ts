@@ -5,11 +5,11 @@ import { db } from "../../../../../..";
 export const GET = async (
   req: NextRequest,
   {
-    params,
+    params
   }: {
     params: Promise<{ slug: string }>;
   }
 ) => {
-  const body = req?.body();
-  return await db.update(ordersTable).set(body);
+  const body = req.body
+  // return await db.update(ordersTable).set(body);
 };
