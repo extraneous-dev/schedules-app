@@ -7,7 +7,10 @@ export default async function ViewBusiness({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const store = await db.select().from(businessTable).where(id);
+  const store = await db
+    .select()
+    .from(businessTable)
+    .where(eq(businessTable.id, Number(id)));
   const items = await db
     .select()
     .from(menuTable)
