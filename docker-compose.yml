@@ -1,17 +1,17 @@
 version: "3.9"
 
 services:
-  app: 
-    build: .
-    depends_on:
-      - keycloak
-      - postgres
-    ports:
-      - 80:3000
-    networks:
-      - keycloak_network
-    environment:
-      - DATABASE_URL=postgres://keycloak:keycloakpassword@postgres:5432/keycloak
+  # app: 
+    # build: .
+    # depends_on:
+    #   - keycloak
+    #   - postgres
+    # ports:
+    #   - 80:3000
+    # networks:
+    #   - keycloak_network
+    # environment:
+    #   - DATABASE_URL=postgres://keycloak:keycloakpassword@postgres:5432/keycloak
   postgres:
     image: postgres:17-alpine
     container_name: keycloak_postgres
