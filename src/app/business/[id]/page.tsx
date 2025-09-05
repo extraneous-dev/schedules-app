@@ -1,6 +1,6 @@
 import { businessTable, menuTable, usersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { getDb } from "../../../..";
+import { getDb } from "../../../../index.js";
 export default async function ViewBusiness({
   params,
 }: {

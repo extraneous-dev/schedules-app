@@ -13,8 +13,9 @@ RUN yarn install --frozen-lockfile
 
 # Copy project files
 COPY . .
-ARG DATABASE_URL
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 # Run drizzle migrations (optional, comment out if running migrations separately)
 # RUN npx drizzle-kit migrate
 

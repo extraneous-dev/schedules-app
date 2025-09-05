@@ -2,6 +2,8 @@ import { BusinessCard } from "@/_components/BusinessCard";
 import { NavBar } from "@/_components/NavBar";
 import SignIn from "@/_components/SignIn";
 import Image from "next/image";
+import { getDb } from "../../index.js";
+import { ordersTable } from "@/db/schema";
 
 export default function Home() {
   return (

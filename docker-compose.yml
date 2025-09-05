@@ -24,6 +24,8 @@ services:
       POSTGRES_PASSWORD: keycloakpassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.5
@@ -35,10 +37,13 @@ services:
       - keycloak_network
     command:
       - start
+      - --import-realm
       # - --optimized
     ports:
       - 8080:8080
       - 8443:8443
+    volumes:
+      - ./keycloak/realm:/opt/keycloak/data/import
     environment:
       # DB
       KC_DB: postgres

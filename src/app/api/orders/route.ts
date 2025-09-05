@@ -1,7 +1,7 @@
 import { ordersTable } from "@/db/schema";
 
 import { NextResponse } from "next/server";
-import { getDb } from "../../../..";
+import { getDb } from "../../../../index.js";
 
 export const GET = async () => {
     const db = getDb();

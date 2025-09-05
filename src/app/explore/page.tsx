@@ -1,5 +1,5 @@
 import { businessTable, usersTable } from "@/db/schema";
-import { getDb } from "../../..";
+import { getDb } from "../../../index.js";
 
 export default async function Explore() {
     const db = getDb();

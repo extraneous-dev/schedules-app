@@ -2,12 +2,14 @@
   "name": "schedules-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build && npx drizzle-kit push",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "npx drizzle-kit migrate"
+    "db:migrate": "npx drizzle-kit push",
+    "db:seed": "node scripts/seeder.js"
   },
   "dependencies": {
     "@libsql/client": "^0.15.9",
@@ -31,6 +33,7 @@
     "eslint-config-next": "15.3.5",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-unused-imports": "^4.2.0",
+    "faker": "^6.6.6",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "typescript": "^5"
