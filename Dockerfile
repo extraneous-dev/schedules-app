@@ -13,12 +13,13 @@ RUN yarn install --frozen-lockfile
 
 # Copy project files
 COPY . .
+ARG DATABASE_URL
 
 # Run drizzle migrations (optional, comment out if running migrations separately)
 # RUN npx drizzle-kit migrate
 
 # Build Next.js app
-RUN yarn build
+RUN DATABASE_URL=${DATABASE_URL} yarn build
 
 # Stage 2: Production runner
 FROM node:20-alpine AS runner
